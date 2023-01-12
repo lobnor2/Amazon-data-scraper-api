@@ -1,5 +1,5 @@
 const express = require("express");
-const request = require("request-promise");
+const axios = require("axios");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,17 +16,18 @@ app.get("/", (req, res) => {
 //Get Product Details
 app.get("/products/:productId", async (req, res) => {
   const { productId } = req.params;
+  // res.send(productId);
 
   try {
     // const response = await request(
     //   `${baseUrl}&url=https://www.flipkart.com/p/${productId}`
     // );
-    const response = await request(
+    const response = await axios.get(
       `${baseUrl}&url=https://www.amazon.com/dp/${productId}`
     );
-    res.json(JSON.parse(response));
+    res.send(response);
   } catch (error) {
-    res.json(error);
+    res.send(error);
   }
 });
 
